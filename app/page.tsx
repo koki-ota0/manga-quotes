@@ -6,7 +6,7 @@ export default function Home() {
   const [containerHeight, setContainerHeight] = useState('auto');
 
   useEffect(() => {
-    let quotes = [];
+    let quotes: any[] = [];
     const gridSize = 20; // グリッドのサイズ
     
     fetch('/quotes.json')
@@ -17,12 +17,12 @@ export default function Home() {
       })
       .catch(error => console.error('Error loading quotes:', error));
 
-    function generateQuotes(quotes) {
+    function generateQuotes(quotes: any[]) {
       const container = document.getElementById('container');
       if (!container) return;
       container.innerHTML = '';
 
-      const grid = [];
+      const grid: boolean[][] = [];
       let y_bottom = 100; // コンテナの高さ
 
       quotes.forEach(quote => {
@@ -66,7 +66,7 @@ export default function Home() {
       // コンテナの高さを更新
       setContainerHeight(`${y_bottom / 5}vh`);
 
-      function canPlace(x, y, width, height) {
+      function canPlace(x: number, y: number, width: number, height: number) {
         for (let i = y; i < y + height; i++) {
           for (let j = x; j < x + width; j++) {
             if (grid[i] && grid[i][j]) return false;
@@ -75,7 +75,7 @@ export default function Home() {
         return true;
       }
 
-      function place(x, y, width, height) {
+      function place(x: number, y: number, width: number, height: number) {
         for (let i = y; i < y + height; i++) {
           if (!grid[i]) grid[i] = [];
           for (let j = x; j < x + width; j++) {
